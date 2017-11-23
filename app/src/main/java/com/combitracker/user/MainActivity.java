@@ -130,11 +130,12 @@ public class MainActivity extends AppCompatActivity
                 subMenus.clear();
                 menuNavigation.clear();
 
-                Drawable icono=getResources().getDrawable(R.drawable.bus);
+                //Drawable icono=getResources().getDrawable(R.drawable.bus);
 
                 Subrutas sub;
                 for(DataSnapshot ds:dataSnapshot.getChildren()){
-                    String ruta = ds.getKey();
+                    Drawable icono=getResources().getDrawable(R.drawable.bus);
+                    String ruta = ds.child("Nombre").getValue().toString();
                     SubMenu subMenu = menuNavigation.addSubMenu(ruta);
                     DataSnapshot subRutas= ds.child("Subrutas");
                     icono.mutate().setColorFilter( Color.parseColor(ds.child("Color").getValue().toString()), PorterDuff.Mode.SRC_IN);
@@ -221,11 +222,15 @@ public class MainActivity extends AppCompatActivity
 
         //Obtener coordenadas para pintar la ruta seleccionada y dejar activo el listener en caso de actualizaciones
 
-        final Query query=firebaseDatabase.getReference().child("Rutas").child(menuNavigation.getItem(rutaP)+"").child("Subrutas");//.child(rta);
+        final Query query=firebaseDatabase.getReference().child("Rutas").child(menuNavigation.getItem(rutaP)+"");//.child(rta);
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snap) {
+
+                DataSnapshot color = snap.child("Color");
+                String colorRuta = color.getValue().toString();
+                snap = snap.child("Subrutas");
 
                 Subrutas ruta;
                 for(DataSnapshot ds:snap.getChildren()){
@@ -233,7 +238,7 @@ public class MainActivity extends AppCompatActivity
 
                     if(ruta.getRuta().equalsIgnoreCase(rutaS)){
                         String camino[]=ruta.getCamino().replace("/",",").split(",");
-                        marcarRuta(camino);
+                        marcarRuta(camino,colorRuta);
                     }
 
                 }
@@ -250,7 +255,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-    private void marcarRuta(String[] camino) {
+    private void marcarRuta(String[] camino, String colorRuta) {
 
 
         limpiarRutaAnterior();
@@ -267,7 +272,7 @@ public class MainActivity extends AppCompatActivity
 
         line.addAll(coordenadas);
         line.width(10);
-        line.color(Color.rgb(0,0,255));
+        line.color(Color.parseColor(colorRuta));
 
 
         if(line!=null){
@@ -337,8 +342,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void seguirCombis() {
-
-
 
         //Obtener combis registradas en la ruta seleccionada
 
@@ -453,7 +456,7 @@ public class MainActivity extends AppCompatActivity
             latU = location.getLatitude();
             lonU = location.getLongitude();
 
-                mPosition = CameraUpdateFactory.newLatLngZoom(new LatLng(latU,lonU), 15);
+                mPosition = CameraUpdateFactory.newLatLngZoom(new LatLng(latU,lonU), 20);
                 gMap.moveCamera(mPosition);
                 agregarMarcador(latU, lonU,"YO");
 
