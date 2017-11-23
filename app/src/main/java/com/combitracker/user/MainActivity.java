@@ -369,9 +369,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onChildChanged(DataSnapshot snap, String s) {
 
-                aux=snap.getValue(Combi.class);
-                agregarMarcadorC(Double.parseDouble(aux.getLat()),Double.parseDouble(aux.getLon()),aux.getNumero()+"-"+aux.getRutaAsignada(),markAux);
-                actualizarUbicacionC(aux);
+                String rutA = snap.child("rutaAsignada").getValue().toString();
+                String lat=snap.child("lat").getValue().toString();
+                String lon=snap.child("lon").getValue().toString();
+                String num=snap.child("numero").getValue().toString();
+
+                agregarMarcadorC(Double.parseDouble(lat),Double.parseDouble(lon),num+"-"+rutA,markAux);
+                actualizarUbicacionC(rutA,lat,lon,num);
             }
 
             @Override
@@ -391,10 +395,10 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    private void actualizarUbicacionC(Combi aux) {
+    private void actualizarUbicacionC(String rutA, String lat, String lon, String num) {
         for(int i=0;i<lstMarkers.size();i++){
-            if(lstMarkers.get(i).getTitle().equalsIgnoreCase(aux.getNumero()+"-"+aux.getRutaAsignada())){
-                agregarMarcadorC(Double.parseDouble(aux.getLat()),Double.parseDouble(aux.getLon()),aux.getNumero()+"-"+aux.getRutaAsignada(),lstMarkers.get(i));
+            if(lstMarkers.get(i).getTitle().equalsIgnoreCase(num+"-"+rutA)){
+                agregarMarcadorC(Double.parseDouble(lat),Double.parseDouble(lon),num+"-"+rutA,lstMarkers.get(i));
                 lstMarkers.remove(i);
 
                 break;
