@@ -131,8 +131,6 @@ public class MainActivity extends AppCompatActivity
                 subMenus.clear();
                 menuNavigation.clear();
 
-                //Drawable icono=getResources().getDrawable(R.drawable.bus);
-
                 Subrutas sub;
                 for(DataSnapshot ds:dataSnapshot.getChildren()){
                     Drawable icono=getResources().getDrawable(R.drawable.bus);
