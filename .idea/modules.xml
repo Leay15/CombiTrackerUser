@@ -3,10 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CombiTrackerUser.iml" filepath="$PROJECT_DIR$/CombiTrackerUser.iml" />
-      <module fileurl="file://C:\Users\ivan_\AndroidStudioProjects\CombiTrackerUser\CombiTrackerUser.iml" filepath="C:\Users\ivan_\AndroidStudioProjects\CombiTrackerUser\CombiTrackerUser.iml" />
       <module fileurl="file://E:\TEC\PROYECTOS_EXTRA\ConcursoAPP\CombiTrackerUser\CombiTrackerUsuario.iml" filepath="E:\TEC\PROYECTOS_EXTRA\ConcursoAPP\CombiTrackerUser\CombiTrackerUsuario.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\ivan_\AndroidStudioProjects\CombiTrackerUser\app\app.iml" filepath="C:\Users\ivan_\AndroidStudioProjects\CombiTrackerUser\app\app.iml" />
     </modules>
   </component>
 </project>
