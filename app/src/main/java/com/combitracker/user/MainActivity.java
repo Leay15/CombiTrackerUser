@@ -466,8 +466,8 @@ public class MainActivity extends AppCompatActivity
             latU = location.getLatitude();
             lonU = location.getLongitude();
 
-                mPosition = CameraUpdateFactory.newLatLngZoom(new LatLng(latU,lonU), 14);
-                gMap.moveCamera(mPosition);
+                //mPosition = CameraUpdateFactory.newLatLngZoom(new LatLng(latU,lonU), 14);
+                //gMap.moveCamera(mPosition);
                 agregarMarcador(latU, lonU,"YO");
 
 
