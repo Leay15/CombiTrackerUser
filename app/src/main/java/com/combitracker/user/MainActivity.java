@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity
             firebaseDatabase.setPersistenceEnabled(true);
         }catch (Exception e){}
 
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -205,7 +206,6 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        String hola="hola";
         return true;
     }
 
@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity
 
         //Obtener coordenadas para pintar la ruta seleccionada y dejar activo el listener en caso de actualizaciones
 
-        final Query query=firebaseDatabase.getReference().child("Rutas").child(menuNavigation.getItem(rutaP)+"");//.child(rta);
+        DatabaseReference query=firebaseDatabase.getReference().child("Rutas").child(menuNavigation.getItem(rutaP)+"");//.child(rta);
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -237,8 +237,9 @@ public class MainActivity extends AppCompatActivity
                     ruta=(ds.getValue(Subrutas.class));
 
                     if(ruta.getRuta().equalsIgnoreCase(rutaS)){
-                        String camino[]=ruta.getCamino().replace("/",",").split(",");
+                        String camino[]=ruta.getCamino().split(",");
                         marcarRuta(camino,colorRuta);
+                        break;
                     }
 
                 }
@@ -354,9 +355,14 @@ public class MainActivity extends AppCompatActivity
         refCombis.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snap, String s) {
-                if(snap!=null&&snap.getValue(Combi.class).getRutaAsignada().equalsIgnoreCase(rutaS)){
-                    aux= snap.getValue(Combi.class);
-                    agregarMarcadorC(Double.parseDouble(aux.getLat()),Double.parseDouble(aux.getLon()),aux.getNumero()+"-"+aux.getRutaAsignada(),markAux);
+                String rutA = snap.child("rutaAsignada").getValue().toString();
+                //aux= snap.getValue(Combi.class);
+                if(snap!=null&&rutA.equalsIgnoreCase(rutaS)){
+                    String lat=snap.child("lat").getValue().toString();
+                    String lon=snap.child("lon").getValue().toString();
+                    String num=snap.child("numero").getValue().toString();
+
+                    agregarMarcadorC(Double.parseDouble(lat),Double.parseDouble(lon),num+"-"+rutA,markAux);
                 }
             }
 
