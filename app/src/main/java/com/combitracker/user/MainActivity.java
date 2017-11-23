@@ -267,7 +267,9 @@ public class MainActivity extends AppCompatActivity
             LatLng position = new LatLng(lat, lng);
             coordenadas.add(position);
         }
-
+        if(!coordenadas.isEmpty()){
+            coordenadas.add(coordenadas.get(0));
+        }
 
         line.addAll(coordenadas);
         line.width(10);
@@ -419,7 +421,7 @@ public class MainActivity extends AppCompatActivity
             try
             {
                 LatLng coordenadas = new LatLng(location.getLatitude(),location.getLongitude());
-                mPosition = CameraUpdateFactory.newLatLngZoom(coordenadas, 15);
+                mPosition = CameraUpdateFactory.newLatLngZoom(coordenadas, 14);
                 if (markUser!= null) markUser.remove();
                 markUser = gMap.addMarker(new MarkerOptions()
                         .position(coordenadas)
@@ -464,7 +466,7 @@ public class MainActivity extends AppCompatActivity
             latU = location.getLatitude();
             lonU = location.getLongitude();
 
-                mPosition = CameraUpdateFactory.newLatLngZoom(new LatLng(latU,lonU), 20);
+                mPosition = CameraUpdateFactory.newLatLngZoom(new LatLng(latU,lonU), 14);
                 gMap.moveCamera(mPosition);
                 agregarMarcador(latU, lonU,"YO");
 
