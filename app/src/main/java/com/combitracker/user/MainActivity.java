@@ -117,11 +117,11 @@ public class MainActivity extends AppCompatActivity
 
         //creando Bitmap para marker usuario
         bmpN= BitmapFactory.decodeResource(getResources(),R.drawable.user);
-        bmpN=Bitmap.createScaledBitmap(bmpN, bmpN.getWidth()/30,bmpN.getHeight()/30, false);
+        bmpN=Bitmap.createScaledBitmap(bmpN, bmpN.getWidth()/15,bmpN.getHeight()/15, false);
 
         //Creando bitmap para marker combis
         bmp= BitmapFactory.decodeResource(getResources(),R.drawable.bus);
-        bmp= Bitmap.createScaledBitmap(bmp, bmp.getWidth()/15,bmp.getHeight()/15, false);
+        bmp= Bitmap.createScaledBitmap(bmp, bmp.getWidth()/10,bmp.getHeight()/10, false);
 
         databaseReference=firebaseDatabase.getReference("Rutas");
         databaseReference.addValueEventListener(new ValueEventListener() {
